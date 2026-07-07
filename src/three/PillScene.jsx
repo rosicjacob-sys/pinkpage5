@@ -81,7 +81,8 @@ export default function PillScene({ reduced, mobile }) {
   useFrame((state) => {
     // rAF is frozen in background tabs anyway; this is the belt for OS-level
     // throttling — skip the draw work, the ticker itself is the heartbeat.
-    if (document.hidden) return
+    // (__PILL_QA__ lets automated QA force-compose frames in a hidden tab.)
+    if (document.hidden && !window.__PILL_QA__) return
     apply(state, state.clock.elapsedTime)
   })
 

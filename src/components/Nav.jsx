@@ -1,0 +1,135 @@
+import { useEffect, useRef, useState } from 'react'
+import { useCart } from '../lib/cart'
+import { scrollToEl } from '../lib/scroll'
+
+const LINKS = [
+  { label: 'Benefits', target: '#benefits' },
+  { label: 'Ingredients', target: '#ingredients' },
+  { label: 'The science', target: '#science' },
+  { label: 'FAQ', target: '#faq' },
+]
+
+export function CapsuleGlyph({ className = '' }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+      <g transform="rotate(38 16 16)">
+        <rect x="9.5" y="3" width="13" height="26" rx="6.5" fill="#FFD3E7" />
+        <path d="M9.5 16h13v6.5a6.5 6.5 0 0 1-13 0z" fill="#F0148C" />
+      </g>
+    </svg>
+  )
+}
+
+export default function Nav() {
+  const { count, bundle } = useCart()
+  const [hidden, setHidden] = useState(false)
+  const [glassy, setGlassy] = useState(false)
+  const [open, setOpen] = useState(false)
+  const lastY = useRef(0)
+  const openRef = useRef(false)
+  openRef.current = open
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY
+      setGlassy(y > 24)
+      if (openRef.current) {
+        setHidden(false)
+      } else if (y > lastY.current + 6 && y > 180) {
+        setHidden(true)
+      } else if (y < lastY.current - 6 || y < 180) {
+        setHidden(false)
+      }
+      lastY.current = y
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  const go = (e, target) => {
+    e.preventDefault()
+    setOpen(false)
+    scrollToEl(target)
+  }
+
+  return (
+    <header className={`nav ${glassy ? 'nav-glass' : ''} ${hidden ? 'nav-hidden' : ''}`}>
+      <div className="nav-inner">
+        <a
+          className="nav-logo"
+          href="#top"
+          aria-label="Pink Pill — home"
+          onClick={(e) => go(e, '#hero')}
+        >
+          <CapsuleGlyph />
+          <span className="nav-wordmark">Pink&nbsp;Pill</span>
+          <span className="nav-sku mono-label">PP-01</span>
+        </a>
+
+        <nav className="nav-links" aria-label="Primary">
+          {LINKS.map((l) => (
+            <a key={l.target} href={l.target} onClick={(e) => go(e, l.target)}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav-actions">
+          <button className="nav-cta" onClick={() => scrollToEl('#offer')}>
+            Add to cart — ${bundle.price}
+          </button>
+          <button
+            className="nav-cart"
+            aria-label={`Cart, ${count} item${count === 1 ? '' : 's'} — view bundles`}
+            onClick={() => {
+              setOpen(false)
+              scrollToEl('#offer')
+            }}
+          >
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+              <path d="M5.5 8.5h13l-1 11h-11z" strokeLinejoin="round" />
+              <path d="M8.8 8.2a3.2 3.2 0 0 1 6.4 0" strokeLinecap="round" />
+            </svg>
+            {count > 0 && (
+              <span key={count} className="cart-badge" aria-hidden="true">
+                {count}
+              </span>
+            )}
+          </button>
+          <button
+            className={`nav-burger ${open ? 'is-open' : ''}`}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu" className={`nav-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        {LINKS.map((l) => (
+          <a key={l.target} href={l.target} tabIndex={open ? 0 : -1} onClick={(e) => go(e, l.target)}>
+            {l.label}
+          </a>
+        ))}
+        <a href="#offer" className="nav-menu-cta" tabIndex={open ? 0 : -1} onClick={(e) => go(e, '#offer')}>
+          Get Pink Pill — from $29
+        </a>
+      </div>
+    </header>
+  )
+}

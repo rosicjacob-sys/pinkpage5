@@ -2,6 +2,7 @@ import { Component, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import PillScene from './PillScene'
 import { usePillChoreography } from './choreography'
+import { pillStore } from './pillStore'
 import { isMobileViewport, reducedMotion, webglSupported } from '../lib/env'
 
 /**
@@ -65,6 +66,8 @@ export default function PillStage() {
 
   // Sizing belt: never boot the canvas into a zero-width box (mount-time
   // layout can be 0 and a one-shot resize leaves a 300x150 canvas).
+  // ResizeObserver callbacks are paint-driven and never fire in hidden tabs,
+  // so a wall-clock poll backs it up — observers alone are not trusted.
   useEffect(() => {
     const el = stageRef.current
     if (!el) return
@@ -72,14 +75,24 @@ export default function PillStage() {
       setSized(true)
       return
     }
-    const ro = new ResizeObserver(() => {
+    let ro = null
+    let timer = null
+    const check = () => {
       if (el.clientWidth > 0) {
         setSized(true)
-        ro.disconnect()
+        if (ro) ro.disconnect()
+        clearInterval(timer)
+        return true
       }
-    })
+      return false
+    }
+    ro = new ResizeObserver(check)
     ro.observe(el)
-    return () => ro.disconnect()
+    timer = setInterval(check, 700)
+    return () => {
+      ro.disconnect()
+      clearInterval(timer)
+    }
   }, [])
 
   const showGL = glOk && !failed
@@ -94,11 +107,17 @@ export default function PillStage() {
               frameloop={reduced ? 'demand' : 'always'}
               camera={{ fov: 35, position: [0, 0, 7] }}
               gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-              onCreated={({ gl }) => {
-                gl.domElement.addEventListener('webglcontextlost', (e) => {
+              onCreated={(state) => {
+                state.gl.domElement.addEventListener('webglcontextlost', (e) => {
                   e.preventDefault()
                   setFailed(true)
                 })
+                // QA handle: set pill state + force one composed frame from a
+                // hidden tab (rAF frozen). Inert unless explicitly driven.
+                window.__pill = {
+                  set: (vals) => Object.assign(pillStore, vals),
+                  advance: () => state.advance(performance.now() / 1000),
+                }
                 // "ready" only after a real frame has been painted
                 requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)))
               }}
