@@ -30,10 +30,10 @@ export function usePillChoreography() {
       gsap.set(pillStore, { x: 0.24, y: 0.01, scale: 1, dark: 0, pose: 0 })
       intro()
       wp('#benefits', { x: -0.37, y: -0.01, scale: 0.5 })
-      wp('#ingredients', { x: 0.22, y: 0, scale: 0.78 })
+      wp('#ingredients', { x: 0.25, y: 0, scale: 0.78 })
       wp('#science', { x: 0.27, y: 0.03, scale: 0.85, dark: 1 }, 'top 85%', 'top 25%')
       wp('#reviews', { x: 0.31, y: 0.05, scale: 0.45, dark: 0 }, 'top 95%', 'top 45%')
-      wp('#offer', { x: -0.31, y: 0.02, scale: 0.4 })
+      wp('#offer', { x: -0.365, y: 0.02, scale: 0.33 })
       wp('#final-cta', { x: 0.27, y: -0.03, scale: 0.6 }, 'top bottom', 'top 45%')
       wp('#site-footer', { y: -0.95 }, 'top bottom', 'top 60%')
 
@@ -43,7 +43,7 @@ export function usePillChoreography() {
           paused: true,
           onComplete: () => window.dispatchEvent(new CustomEvent('pill-landed')),
         })
-        .to(pillStore, { dropY: -0.16, duration: 0.55, ease: 'power2.in' })
+        .to(pillStore, { dropY: -0.2, duration: 0.55, ease: 'power2.in' })
         .to(pillStore, { squash: 0.6, duration: 0.09, ease: 'power1.out' })
         .set(pillStore, { puff: 1 }, '<')
         .to(pillStore, { squash: 1, duration: 0.9, ease: 'elastic.out(1, 0.4)' })
@@ -61,7 +61,7 @@ export function usePillChoreography() {
     })
 
     mm.add(MQ_MOBILE, () => {
-      gsap.set(pillStore, { x: 0, y: -0.2, scale: 0.6, dark: 0, split: 0 })
+      gsap.set(pillStore, { x: 0.2, y: -0.35, scale: 0.5, dark: 0, split: 0 })
       intro()
       // Small ornament in the upper right through the reading sections.
       wp('#benefits', { x: 0.3, y: 0.32, scale: 0.26 })
@@ -85,9 +85,9 @@ export function usePillChoreography() {
       // One dignified static pose; the scene renders a single frame.
       const mobile = window.innerWidth < 800
       gsap.set(pillStore, {
-        x: mobile ? 0 : 0.24,
-        y: mobile ? -0.2 : 0.01,
-        scale: mobile ? 0.6 : 1,
+        x: mobile ? 0.2 : 0.24,
+        y: mobile ? -0.35 : 0.01,
+        scale: mobile ? 0.5 : 1,
         intro: 1,
         split: 0,
         dark: 0,

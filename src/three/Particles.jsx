@@ -5,7 +5,7 @@ import { pillStore } from './pillStore'
 import { easeInOutCubic, mulberry32 } from './utils'
 
 const PUFF_N = 42
-const CLUSTER_RADII = [1.5, 1.95, 2.4, 2.85] // one orbital ring per active
+const CLUSTER_RADII = [1.35, 1.7, 2.05, 2.4] // one orbital ring per active
 const CLUSTER_TILTS = [
   [0.42, 0.2],
   [-0.55, -0.35],
