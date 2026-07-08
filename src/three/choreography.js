@@ -34,7 +34,9 @@ export function usePillChoreography() {
       wp('#science', { x: 0.27, y: 0.03, scale: 0.85, dark: 1 }, 'top 85%', 'top 25%')
       wp('#reviews', { x: 0.31, y: 0.05, scale: 0.45, dark: 0 }, 'top 95%', 'top 45%')
       wp('#offer', { x: -0.365, y: 0.02, scale: 0.33 })
-      wp('#final-cta', { x: 0.27, y: -0.03, scale: 0.6 }, 'top bottom', 'top 45%')
+      // dropY resets 0 here so the landed pill lifts back to headline height
+      // as it travels to the final CTA (symmetric on scroll-up).
+      wp('#final-cta', { x: 0.27, y: -0.03, scale: 0.6, dropY: 0 }, 'top bottom', 'top 45%')
       wp('#site-footer', { y: -0.95 }, 'top bottom', 'top 60%')
 
       // The drop: arc into the bottle, squash, puff, tell the DOM.
