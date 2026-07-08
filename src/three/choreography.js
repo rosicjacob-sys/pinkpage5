@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { pillStore } from './pillStore'
-import { MQ_DESKTOP, MQ_MOBILE, MQ_REDUCED } from '../lib/env'
+import { MQ_DESKTOP, MQ_MOBILE, MQ_REDUCED_DESKTOP, MQ_REDUCED_MOBILE } from '../lib/env'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -81,9 +81,9 @@ export function usePillChoreography() {
       return () => shineST.kill()
     })
 
-    mm.add(MQ_REDUCED, () => {
-      // One dignified static pose; the scene renders a single frame.
-      const mobile = window.innerWidth < 800
+    // One dignified static pose per breakpoint; width-scoped queries so the
+    // pose re-applies if a reduced-motion viewport crosses 800px live.
+    const staticPose = (mobile) => () =>
       gsap.set(pillStore, {
         x: mobile ? 0.2 : 0.24,
         y: mobile ? -0.35 : 0.01,
@@ -91,11 +91,13 @@ export function usePillChoreography() {
         intro: 1,
         split: 0,
         dark: 0,
+        pose: 0,
         dropY: 0,
         squash: 1,
         puff: 0,
       })
-    })
+    mm.add(MQ_REDUCED_DESKTOP, staticPose(false))
+    mm.add(MQ_REDUCED_MOBILE, staticPose(true))
 
     return () => mm.revert()
   }, [])

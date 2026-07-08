@@ -3,7 +3,12 @@ import { Canvas } from '@react-three/fiber'
 import PillScene from './PillScene'
 import { usePillChoreography } from './choreography'
 import { pillStore } from './pillStore'
-import { isMobileViewport, reducedMotion, webglSupported } from '../lib/env'
+import {
+  FORCE_REDUCED_MOTION,
+  MOBILE_MQ,
+  useMediaQuery,
+  webglSupported,
+} from '../lib/env'
 
 /**
  * ErrorBoundary around the R3F tree: any scene/shader failure falls through
@@ -59,8 +64,11 @@ export default function PillStage() {
   const [ready, setReady] = useState(false)
   const [sized, setSized] = useState(false)
   const stageRef = useRef(null)
-  const reduced = reducedMotion()
-  const mobile = isMobileViewport()
+  // Live, not mount-time snapshots: viewport crossings and OS-level
+  // reduced-motion toggles re-tune dpr / particles / frameloop on the fly,
+  // keeping the canvas in sync with the gsap.matchMedia choreography.
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)', FORCE_REDUCED_MOTION)
+  const mobile = useMediaQuery(MOBILE_MQ)
 
   usePillChoreography()
 

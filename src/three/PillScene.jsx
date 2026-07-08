@@ -83,7 +83,9 @@ export default function PillScene({ reduced, mobile }) {
     // throttling — skip the draw work, the ticker itself is the heartbeat.
     // (__PILL_QA__ lets automated QA force-compose frames in a hidden tab.)
     if (document.hidden && !window.__PILL_QA__) return
-    apply(state, state.clock.elapsedTime)
+    // Reduced motion: freeze the time source so every demand frame (resize,
+    // re-render) composes the SAME pose — one static frame, guaranteed.
+    apply(state, reduced ? 0.9 : state.clock.elapsedTime)
   })
 
   // Reduced motion: compose exactly one static frame (and again on resize —

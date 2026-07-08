@@ -26,6 +26,7 @@ export const BUNDLES = [
     per: '$29 / month — save 25%',
     note: 'Skip or cancel anytime, one click',
     cadence: 'per month',
+    note2: 'Ships free, every month',
   },
 ]
 
@@ -92,7 +93,7 @@ export const FAQS = [
   },
   {
     q: 'How does the subscription work?',
-    a: 'It renews monthly at $29 and ships automatically. Skip a month, pause, or cancel anytime in one click — from your account or straight from any receipt email. Canceling is exactly as easy as starting.',
+    a: 'It renews monthly at $29 and ships automatically — shipping is always free for subscribers. Skip a month, pause, or cancel anytime in one click — from your account or straight from any receipt email. Canceling is exactly as easy as starting.',
   },
   {
     q: 'What if it doesn’t work for me?',
@@ -100,7 +101,7 @@ export const FAQS = [
   },
   {
     q: 'When will it arrive?',
-    a: 'Orders ship within 24 hours on business days. US delivery takes 2–5 business days, and shipping is free over $50 (so the 3-pack and the subscription always ship free).',
+    a: 'Orders ship within 24 hours on business days. US delivery takes 2–5 business days. Shipping is free over $50, so the 3-pack ships free — and every subscription order ships free as a subscriber perk, regardless of total.',
   },
   {
     q: 'Who shouldn’t take it?',

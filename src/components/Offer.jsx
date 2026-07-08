@@ -63,6 +63,19 @@ export default function Offer() {
     setBundleId(id)
   }
 
+  // Real radio-group keyboard semantics: arrows move selection, one tab stop.
+  const onGroupKeyDown = (e) => {
+    const idx = BUNDLES.findIndex((b) => b.id === bundleId)
+    let next = -1
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % BUNDLES.length
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx + BUNDLES.length - 1) % BUNDLES.length
+    if (next < 0) return
+    e.preventDefault()
+    select(BUNDLES[next].id)
+    const btns = cardsRef.current?.querySelectorAll('.bundle-card')
+    if (btns && btns[next]) btns[next].focus()
+  }
+
   useLayoutEffect(() => {
     if (!flipState.current) return
     Flip.from(flipState.current, { duration: 0.5, ease: 'power3.inOut' })
@@ -94,7 +107,13 @@ export default function Offer() {
             <p className="mono-label offer-left-note">SHIPS IN 24H · FREE OVER $50</p>
           </div>
           <div className="offer-right">
-            <div className="bundle-cards" ref={cardsRef} role="radiogroup" aria-label="Choose a bundle">
+            <div
+              className="bundle-cards"
+              ref={cardsRef}
+              role="radiogroup"
+              aria-label="Choose a bundle"
+              onKeyDown={onGroupKeyDown}
+            >
               {BUNDLES.map((b) => {
                 const selected = b.id === bundleId
                 return (
@@ -103,6 +122,7 @@ export default function Offer() {
                     className={`bundle-card ${selected ? 'is-selected' : ''}`}
                     role="radio"
                     aria-checked={selected}
+                    tabIndex={selected ? 0 : -1}
                     onClick={() => select(b.id)}
                   >
                     {b.popular && <span className="bundle-sash mono-label">MOST POPULAR</span>}
@@ -113,7 +133,10 @@ export default function Offer() {
                       {b.id === 'sub' && <span className="bundle-mo">/mo</span>}
                     </span>
                     <span className="bundle-per mono-label">{b.per.toUpperCase()}</span>
-                    <span className="bundle-note">{b.note}</span>
+                    <span className="bundle-note">
+                      {b.note}
+                      {b.note2 ? <>. {b.note2}</> : null}
+                    </span>
                     {selected && <span className="select-ring" data-flip-id="ring" aria-hidden="true" />}
                   </button>
                 )

@@ -21,7 +21,7 @@ export function CapsuleGlyph({ className = '' }) {
 }
 
 export default function Nav() {
-  const { count, bundle } = useCart()
+  const { count, bundle, add } = useCart()
   const [hidden, setHidden] = useState(false)
   const [glassy, setGlassy] = useState(false)
   const [open, setOpen] = useState(false)
@@ -56,6 +56,17 @@ export default function Nav() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
+  // Close the menu if the viewport grows past the burger's breakpoint —
+  // otherwise rotation to landscape strands an open panel with no toggle.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 641px)')
+    const onChange = () => {
+      if (mq.matches) setOpen(false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
   const go = (e, target) => {
     e.preventDefault()
     setOpen(false)
@@ -85,8 +96,15 @@ export default function Nav() {
         </nav>
 
         <div className="nav-actions">
-          <button className="nav-cta" onClick={() => scrollToEl('#offer')}>
+          <button
+            className="nav-cta"
+            onClick={() => {
+              add(bundle.id === 'triple' ? 3 : 1)
+              scrollToEl('#offer')
+            }}
+          >
             Add to cart — ${bundle.price}
+            {bundle.id === 'sub' ? '/mo' : ''}
           </button>
           <button
             className="nav-cart"
@@ -127,7 +145,7 @@ export default function Nav() {
           </a>
         ))}
         <a href="#offer" className="nav-menu-cta" tabIndex={open ? 0 : -1} onClick={(e) => go(e, '#offer')}>
-          Get Pink Pill — from $29
+          Get Pink Pill — $39, or $29/mo
         </a>
       </div>
     </header>

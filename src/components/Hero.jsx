@@ -6,7 +6,7 @@ import { useCart } from '../lib/cart'
 import { scrollToEl } from '../lib/scroll'
 
 export default function Hero() {
-  const { add } = useCart()
+  const { add, setBundleId } = useCart()
   const scope = useReveal((el) =>
     gsap.from(el.querySelectorAll('[data-reveal]'), {
       y: 26,
@@ -35,7 +35,13 @@ export default function Hero() {
           </p>
           <div className="hero-ctas" data-reveal>
             <Magnetic>
-              <button className="btn" onClick={() => add(1)}>
+              <button
+                className="btn"
+                onClick={() => {
+                  setBundleId('single') // the button says $39 — the cart agrees
+                  add(1)
+                }}
+              >
                 Add to cart — $39
               </button>
             </Magnetic>

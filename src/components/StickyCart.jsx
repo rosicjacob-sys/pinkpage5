@@ -19,16 +19,19 @@ export default function StickyCart() {
   }, [])
   return (
     <div className={`sticky-cart ${show ? 'is-visible' : ''}`}>
-      <div className="sticky-info">
-        <span className="sticky-name">Pink Pill · {bundle.tag.toLowerCase()}</span>
-        <span className="sticky-price">
-          ${bundle.price}
-          {bundle.id === 'sub' ? '/mo' : ''}
-        </span>
+      <div className="sticky-row">
+        <div className="sticky-info">
+          <span className="sticky-name">Pink Pill · {bundle.tag.toLowerCase()}</span>
+          <span className="sticky-price">
+            ${bundle.price}
+            {bundle.id === 'sub' ? '/mo' : ''}
+          </span>
+        </div>
+        <button className="btn sticky-btn" onClick={() => add(bundle.id === 'triple' ? 3 : 1)}>
+          Add to cart
+        </button>
       </div>
-      <button className="btn sticky-btn" onClick={() => add(bundle.id === 'triple' ? 3 : 1)}>
-        Add to cart
-      </button>
+      <p className="sticky-trust mono-label">60-DAY GUARANTEE · SECURE CHECKOUT</p>
     </div>
   )
 }

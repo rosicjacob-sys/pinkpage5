@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { pillStore } from '../three/pillStore'
 import { INGREDIENTS } from '../lib/data'
-import { MQ_DESKTOP } from '../lib/env'
+import { MQ_DESKTOP, reducedMotion } from '../lib/env'
 import { useReveal } from '../lib/reveal'
 import SplitHeading from './SplitHeading'
 import Counter from './Counter'
@@ -97,9 +97,11 @@ export default function Ingredients() {
                 </li>
               ))}
             </ol>
-            <p className="ing-hint mono-label" aria-hidden="true">
-              KEEP SCROLLING — THE CAPSULE OPENS
-            </p>
+            {!reducedMotion() && (
+              <p className="ing-hint mono-label" aria-hidden="true">
+                KEEP SCROLLING — THE CAPSULE OPENS
+              </p>
+            )}
           </div>
           <div className="ing-space" aria-hidden="true" />
         </div>
