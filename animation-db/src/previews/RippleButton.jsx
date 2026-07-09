@@ -14,17 +14,15 @@ export default function RippleButton() {
   }, [])
 
   return (
-    <div className="pv-container pv-center">
-      <button className="ripple-btn" onClick={onClick}>
-        Click me
+    <div className="pv-container pv-dark pv-center">
+      <button className="rb-main" onClick={onClick}>
+        <span className="rb-text">Launch</span>
+        <span className="rb-shortcut">⌘ K</span>
         {ripples.map((r) => (
-          <span
-            key={r.id}
-            className="ripple"
-            style={{ left: r.x, top: r.y }}
-          />
+          <span key={r.id} className="rb-ripple" style={{ left: r.x, top: r.y }} />
         ))}
       </button>
+      <p className="pv-hint">Click anywhere on the button</p>
     </div>
   )
 }
