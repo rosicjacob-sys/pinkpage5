@@ -32,6 +32,12 @@
       "port": 8600
     },
     {
+      "name": "strata-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/andreidutescu/strata && npm run preview -- --port 5169 --strictPort"],
+      "port": 5169
+    },
+    {
       "name": "peptides-preview",
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "cd /Users/andreidutescu/peptides && npm run preview -- --port 5179 --strictPort"],
