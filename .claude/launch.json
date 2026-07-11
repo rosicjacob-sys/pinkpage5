@@ -38,6 +38,18 @@
       "port": 5159
     },
     {
+      "name": "v10-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/andreidutescu/v10 && npm run preview -- --port 5149 --strictPort"],
+      "port": 5149
+    },
+    {
+      "name": "v10-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/andreidutescu/v10 && npm run dev -- --port 5148 --strictPort"],
+      "port": 5148
+    },
+    {
       "name": "strata-preview",
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "cd /Users/andreidutescu/strata && npm run preview -- --port 5169 --strictPort"],
