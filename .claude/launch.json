@@ -32,6 +32,12 @@
       "port": 8600
     },
     {
+      "name": "lumen-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/andreidutescu/lumen && npm run preview -- --port 5159 --strictPort"],
+      "port": 5159
+    },
+    {
       "name": "strata-preview",
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "cd /Users/andreidutescu/strata && npm run preview -- --port 5169 --strictPort"],
