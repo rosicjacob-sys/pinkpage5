@@ -1,0 +1,25 @@
+# Pink Pill — project handoff
+
+Animated supplement/pharma landing with a persistent 3D capsule and scroll choreography.
+
+- **Live preview port:** `:8601`  (host `https://andreidutescus-macbook-pro.tailb4cf4e.ts.net:8601`; needs Tailscale + passcode — ask the owner)
+- **Stack:** Vite + React 18 + Three.js + GSAP + Lenis. Plain JS (JSX), hand-written CSS. No TypeScript, no Tailwind.
+- **Signature animation:** src/three/PillStage.jsx + PillScene.jsx + Capsule.jsx (3D capsule); store: src/three/pillStore.js
+- **Commerce:** Mock cart present: src/lib/cart.jsx + components/StickyCart.jsx.
+
+## Run it
+```bash
+npm ci        # exact locked install (first time)
+npm run dev   # dev server with hot reload
+npm run build # static production build into ./dist
+npm run preview
+```
+
+## Structure
+`index.html` → `src/main.jsx` → `src/App.jsx` (composes the sections) → `src/components/*` (DOM sections) + `src/three/*` (WebGL scene) + `src/lib/*` (scroll, cart, data, helpers). One persistent `<canvas>` is fixed behind the content; a global GSAP ScrollTrigger drives the page.
+
+## Before it goes live on Shopify
+Read the master guide one level up: **`../../README.md`** — Section 4 (three integration paths) and **Section 5 (replace the mock commerce with Shopify)**. The prices/products in `src/lib/data.js` are **placeholders**.
+
+## QA hooks (dev)
+Append `?rm=1` to force reduced-motion, `?nogl=1` to force the non-WebGL fallback.
