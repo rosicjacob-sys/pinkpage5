@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "devportal": "node scripts/build-dev-portal.mjs",
-    "deploy": "sh scripts/deploy-pages.sh"
+    "deploy": "sh scripts/deploy-vercel.sh pinkpill-dev"
   },
   "dependencies": {
     "@fontsource-variable/figtree": "^5.2.0",
