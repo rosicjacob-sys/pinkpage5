@@ -23,3 +23,10 @@ Distilled from the Pink Pill build (pinkpage5) and its replication (alto). Every
 - Never edit the master per-run; product specifics belong in the PRODUCT CONTEXT block (§7 defaults to the pill).
 - If a run discovers a NEW shipped-bug class, append it to master §4 — the master only grows scar tissue, never opinions.
 - The pill test is non-negotiable and always first, even on templates that scream for another product; a fixed product is what makes 135 scorecards comparable.
+
+## 04 · SWIM-QUAD (swimwear, four-variation engine)
+`04-SWIM-QUAD-MEGA-PROMPT.md` — standalone mega prompt: reverse-engineers the reference family's
+animation logic into a dossier, then builds FOUR pairwise-unrecognizable swimwear pages
+(2 pink+white, 2 purple+white) with mandated agent fan-out, QA agents, a 9-axis distinctness
+contract, and a blind cluster-by-studio confusability gate. Adversarially critiqued (3 lenses,
+14 surviving edits) before v1.0 was cut.
