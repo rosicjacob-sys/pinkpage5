@@ -30,3 +30,23 @@ animation logic into a dossier, then builds FOUR pairwise-unrecognizable swimwea
 (2 pink+white, 2 purple+white) with mandated agent fan-out, QA agents, a 9-axis distinctness
 contract, and a blind cluster-by-studio confusability gate. Adversarially critiqued (3 lenses,
 14 surviving edits) before v1.0 was cut.
+
+## 05 · JERSEY-OCTO (signed soccer jerseys, eight-template engine)
+`05-JERSEY-OCTO-MEGA-PROMPT.md` — standalone mega prompt: reverse-engineers the reference
+family's animation logic, then builds EIGHT pairwise-unrecognizable signed-jersey templates.
+Core: the INDIRECTION LAW (jersey never the protagonist — animate the signing/proof/stadium/
+craft), 8 disjoint technique classes with a dominant-visual-verb registry and pre-assigned
+pairing matrix, a 10-world indirect metaphor pool, memorabilia commerce spine (COA, provenance
+set-piece wired to SKU data, scarcity ethics, tiered licensing language, fictional
+authenticators), 2-wave build, blind 8-studio clustering gate, bottom-two floor pass.
+Adversarially critiqued (2 focused lenses, 11 surviving edits) before v1.0 was cut.
+
+## 06 · VELVET-OCTO (pink intimacy-supplement pill, eight-template engine)
+`06-VELVET-OCTO-MEGA-PROMPT.md` — standalone mega prompt: eight pairwise-unrecognizable
+templates for a pink adult-wellness supplement (working name Fibrenalysin, swap-ready).
+Doubled indirection law (no pill hero, no bodies), TASTE LAW with calibration anchors +
+dedicated Taste-QA agent, 10 indirect worlds with mandatory DESIRE THREADs and forced
+divergence from the reference family's looks, pink-as-accent rule (≤15% painted area,
+ΔE00 ≥ 10 between accents), DSHEA claims tiers with QA banned-pattern grep, discreet-shipping
+trust spine, no-product-on-timeline rule (blocks onset claims via spectacle). Adversarially
+critiqued (2 lenses, 17 surviving edits) before v1.0 was cut.
